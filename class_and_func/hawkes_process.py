@@ -83,7 +83,8 @@ class exp_thinning_hawkes(object):
 
         while flag < self.max_jumps:
 
-            upper_intensity = max(self.lambda_0, candidate_intensity)
+            upper_intensity = max(self.lambda_0,
+                                  self.lambda_0 + self.aux * np.exp(-self.beta * (self.t - self.timestamps[-1])))
 
             self.t += np.random.exponential(1 / upper_intensity)
             candidate_intensity = self.lambda_0 + self.aux * np.exp(-self.beta * (self.t - self.timestamps[-1]))
